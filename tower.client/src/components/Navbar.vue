@@ -1,9 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
-      </div>
+      <div class="d-flex flex-column align-items-center">Tower</div>
     </router-link>
     <button
       class="navbar-toggler"
@@ -20,13 +18,60 @@
       <ul class="navbar-nav me-auto">
         <li>
           <router-link
+            :to="{ name: 'Home' }"
+            class="btn text-success lighten-30 selectable text-uppercase"
+          >
+            Home
+          </router-link>
+        </li>
+      </ul>
+      <!-- <ul class="navbar-nav me-auto">
+        <li>
+          <router-link
+            :to="{ name: 'EventDetails' }"
+            class="btn text-success lighten-30 selectable text-uppercase"
+          >
+            Event Details
+          </router-link>
+        </li>
+      </ul> -->
+      <ul class="navbar-nav me-auto">
+        <li>
+          <router-link
+            :to="{ name: 'Account' }"
+            class="btn text-success lighten-30 selectable text-uppercase"
+          >
+            Account
+          </router-link>
+        </li>
+      </ul>
+      <ul>
+        <div
+          class="
+            btn
+            text-success
+            lighten-30
+            selectable
+            text-uppercase
+            mt-3
+            me-5
+          "
+          data-bs-toggle="modal"
+          data-bs-target="#createEvent-modal"
+        >
+          Create Event
+        </div>
+      </ul>
+      <!-- <ul class="navbar-nav me-auto">
+        <li>
+          <router-link
             :to="{ name: 'About' }"
             class="btn text-success lighten-30 selectable text-uppercase"
           >
             About
           </router-link>
         </li>
-      </ul>
+      </ul> -->
       <!-- LOGIN COMPONENT HERE -->
       <Login />
     </div>
