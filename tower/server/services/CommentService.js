@@ -1,6 +1,5 @@
 import { dbContext } from "../db/DbContext"
 import { BadRequest } from "../utils/Errors"
-import { towerEventService } from "./TowerEventService"
 
 class CommentService {
 
@@ -13,7 +12,7 @@ class CommentService {
   async getComments(eventId) {
     const comments = await dbContext.Comments.find({ eventId })
       .populate('creator', 'name picture')
-      .populate('tevent')
+      .populate('event')
     return comments
   }
 

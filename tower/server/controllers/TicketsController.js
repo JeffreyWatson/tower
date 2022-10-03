@@ -8,12 +8,8 @@ export class TicketsController extends BaseController {
     super('api/tickets')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getAll)
       .post('', this.create)
       .delete('/:id', this.delete)
-  }
-  getAll(arg0, getAll) {
-    throw new Error("Method not implemented.")
   }
   async create(req, res, next) {
     try {
