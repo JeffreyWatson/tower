@@ -23,7 +23,20 @@
 						<span v-if="activeEvent.isCanceled">Status: Cancelled</span>
 						<span v-else>Status: Active</span>
 						<span>Event Type: {{ activeEvent.type }}</span>
-						<span>Button</span>
+						<span
+							><button class="btn btn-dark" @click="createTicket">
+								Attend
+							</button></span
+						>
+						<span
+							v-if="
+								activeEvent.creatorId == account.id &&
+								activeEvent.isCanceled == false
+							"
+							><button class="btn btn-danger" @click="deleteEvent">
+								Cancel
+							</button></span
+						>
 					</p>
 				</div>
 			</div>
@@ -33,18 +46,20 @@
 					<Attendees v-for="t in tickets" :key="t.id" :tickets="t" />
 				</div>
 			</div>
-			<form @submit.prevent="createComment">
+			<form class="d-flex flex-column" @submit.prevent="createComment()">
 				<textarea
 					name="body"
 					id="body"
-					cols="30"
-					rows="10"
+					cols="20"
+					rows="5"
 					v-model="commentData.body"
 				></textarea>
-				<button>Comment</button>
+				<div class="d-flex flex-row justify-content-center">
+					<button class="btn btn-dark m-3">Comment</button>
+				</div>
 			</form>
 
-			<div class="col-12 d-flex flex-row justify-content-center">
+			<div class="col-12 d-flex flex-column align-items-center">
 				<Comment v-for="c in comment" :key="c.id" :comment="c" />
 			</div>
 		</div>
@@ -64,7 +79,7 @@ import { ticketService } from '../services/TicketService';
 export default {
 	setup() {
 		const route = useRoute();
-		const commentData = ref({});
+		const commentData = ref({ eventId: '' });
 		onMounted(async () => {
 			try {
 				await towerEventService.getEvent(route.params.id)
@@ -80,12 +95,36 @@ export default {
 			activeEvent: computed(() => AppState.activeEvent),
 			comment: computed(() => AppState.comment),
 			tickets: computed(() => AppState.ticket),
+			account: computed(() => AppState.account),
 			formatDate(rawDate) {
 				return new Date(rawDate).toLocaleDateString();
 			},
 			async createComment() {
 				try {
+					commentData.value.eventId = route.params.id
 					await commentService.createComment(commentData.value)
+				} catch (error) {
+					logger.error(error)
+					Pop.toast(error.message, 'error')
+				}
+			},
+			async deleteEvent() {
+				try {
+					await towerEventService.deleteEvent(this.activeEvent.id)
+					Pop.toast('Event has been cancelled', 'success')
+				} catch (error) {
+					logger.error(error)
+					Pop.toast(error.message, 'error')
+				}
+			},
+			async createTicket() {
+				try {
+					const ticket = { accountId: AppState.account.id, eventId: route.params.id }
+					if (this.activeEvent.capacity > 0) {
+						await ticketService.createTicket(ticket)
+						this.towerEvent.capacity--
+						Pop.toast("Enjoy the Event", 'success')
+					}
 				} catch (error) {
 					logger.error(error)
 					Pop.toast(error.message, 'error')
@@ -98,4 +137,7 @@ export default {
 
 
 <style lang="scss" scoped>
+.align {
+	justify-content: center;
+}
 </style>

@@ -6,6 +6,7 @@ class CommentService {
   async create(body) {
     let comment = await dbContext.Comments.create(body)
     await comment.populate('creator', 'name picture')
+    await comment.populate('event')
     return comment
   }
 

@@ -12,6 +12,7 @@ class TowerEventService {
   async getEvent(id) {
     const res = await api.get('api/events/' + id)
     AppState.activeEvent = res.data
+    logger.log(res.data)
   }
 
   async createEvent(towerEventData) {
@@ -21,7 +22,7 @@ class TowerEventService {
   }
 
   async deleteEvent(id) {
-    const res = await api.delete(`api/events/${id}`)
+    await api.delete(`api/events/${id}`)
     AppState.towerEvent = AppState.towerEvent.filter(t => t.id != id)
   }
 
