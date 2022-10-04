@@ -1,37 +1,35 @@
 <template>
-  <div class="card" style="width: 18rem">
-    <img src="" class="card-img-top" alt="" />
-    <div class="card-body">
-      <h5 class="card-title"></h5>
-      <p class="card-text">
-        {{ comment.body }}
-      </p>
-    </div>
-  </div>
+	<div class="card col-10">
+		<div class="card-body d-flex flex-row">
+			<div class="col-2">
+				<img
+					class="rounded"
+					:src="comment.creator.picture"
+					alt="Commenter name"
+				/>
+			</div>
+			<div class="col-10">
+				<h5 class="card-title">
+					{{ comment.creator.name }}
+					<span v-if="isAttending">Is attending this event.</span>
+				</h5>
+				<p class="card-text">
+					{{ comment.body }}
+				</p>
+			</div>
+		</div>
+	</div>
 </template>
 
 
 <script>
-import { computed } from '@vue/reactivity'
-import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
-import Pop from '../utils/Pop'
-import { commentService } from '../services/CommentService'
-export default {
 
-  setup() {
-    return {
-      comment: computed(() => AppState.comment),
-      async getComment() {
-        try {
-          await commentService.getComment(route.params.id)
-        } catch (error) {
-          logger.error(error)
-          Pop.toast(error.message, 'error')
-        }
-      }
-    }
-  }
+
+export default {
+	props: { comment: { type: Object, required: true } },
+	setup() {
+		return {}
+	}
 }
 </script>
 
