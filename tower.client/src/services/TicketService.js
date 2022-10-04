@@ -10,8 +10,8 @@ class TicketService {
     AppState.ticket = res.data
   }
 
-  async createTicket(ticket) {
-    const res = await api.post('api/tickets', ticket)
+  async createTicket(ticketData) {
+    const res = await api.post('api/tickets', ticketData)
     logger.log(res.data)
     AppState.ticket = res.data
   }

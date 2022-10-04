@@ -122,8 +122,7 @@ export default {
 					const ticket = { accountId: AppState.account.id, eventId: route.params.id }
 					if (this.activeEvent.capacity > 0) {
 						await ticketService.createTicket(ticket)
-						this.towerEvent.capacity--
-						Pop.toast("Enjoy the Event", 'success')
+						Pop.toast("Ticket purchased.", 'success')
 					}
 				} catch (error) {
 					logger.error(error)
