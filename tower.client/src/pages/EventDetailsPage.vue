@@ -52,6 +52,7 @@
 					id="body"
 					cols="20"
 					rows="5"
+					placeholder="Comment here..."
 					v-model="commentData.body"
 				></textarea>
 				<div class="d-flex flex-row justify-content-center">
@@ -79,7 +80,7 @@ import { ticketService } from '../services/TicketService';
 export default {
 	setup() {
 		const route = useRoute();
-		const commentData = ref({ eventId: '' });
+		const commentData = ref({ eventId: '', body: '' });
 		onMounted(async () => {
 			try {
 				await towerEventService.getEvent(route.params.id)
@@ -103,6 +104,7 @@ export default {
 				try {
 					commentData.value.eventId = route.params.id
 					await commentService.createComment(commentData.value)
+					commentData.value = {}
 				} catch (error) {
 					logger.error(error)
 					Pop.toast(error.message, 'error')

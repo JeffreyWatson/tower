@@ -1,7 +1,7 @@
 <template>
 	<div class="card col-10 m-2">
 		<div class="card-body d-flex flex-row">
-			<div class="">
+			<div>
 				<img
 					class="rounded"
 					:src="comment.creator.picture"
@@ -9,16 +9,21 @@
 				/>
 			</div>
 			<div class="ms-3">
-				<div class="card-title">
-					{{ comment.creator.name }}
+				<div class="card-title d-flex flex-row justify-content-between">
+					<div>
+						{{ comment.creator.name }}
+					</div>
 					<span v-if="comment.isAttending">Is attending this event.</span>
+					<div class="text-end">
+						<i
+							class="mdi mdi-delete-forever-outline"
+							@click="deleteComment()"
+						></i>
+					</div>
 				</div>
 				<p class="card-text">
 					{{ comment.body }}
 				</p>
-			</div>
-			<div>
-				<i class="mdi mdi-delete-forever-outline" @click="deleteComment()"></i>
 			</div>
 		</div>
 	</div>

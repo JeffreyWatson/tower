@@ -52,7 +52,7 @@ a:hover {
 .nav-link {
 	text-transform: uppercase;
 }
-.navbar-nav .router-link-exact-active {
+.navbar-nav .-exact-active {
 	border-bottom: 2px solid var(--bs-success);
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
