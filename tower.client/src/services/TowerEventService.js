@@ -4,8 +4,18 @@ import { api } from "./AxiosService"
 
 
 class TowerEventService {
-  async getEvents() {
-    const res = await api.get('api/events')
+  async getEvents(type = '') {
+    let res
+    if (type) {
+      res = await api.get('api/events', {
+        params: {
+          type: type
+        }
+      })
+    } else {
+      res = await api.get('api/events')
+    }
+
     AppState.towerEvent = res.data
   }
 
