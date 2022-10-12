@@ -1,48 +1,54 @@
 <template>
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
-			<div class="card d-flex flex-row">
-				<div class="col-3 p-3 d-flex flex-column justify-content-center">
-					<img
-						class="img-fluid"
-						:src="activeEvent.coverImg"
-						alt="Image of the event"
-					/>
-				</div>
-				<div class="col-9 p-3">
-					<div class="d-flex flex-row justify-content-between mb-3">
-						{{ activeEvent.name }}
-						<span>{{ formatDate(activeEvent.startDate) }}</span>
+			<div class="card d-flex flex-row sexy p-0 rounded">
+				<div class="col-12 d-flex flex-row justify-content-between custom">
+					<div class="p-3 justify-content-center">
+						<img
+							class="img-fluid rounded"
+							:src="activeEvent.coverImg"
+							alt="Image of the event"
+						/>
 					</div>
-					<div class="d-flex flex-row justify-content-between mb-3">
-						{{ activeEvent.location }}
-						<span>Capacity: {{ activeEvent.capacity }}</span>
+					<div class="p-3">
+						<div
+							class="d-flex flex-row justify-content-between mb-3 text-white"
+						>
+							{{ activeEvent.name }}
+							<span>{{ formatDate(activeEvent.startDate) }}</span>
+						</div>
+						<div
+							class="d-flex flex-row justify-content-between mb-3 text-white"
+						>
+							{{ activeEvent.location }}
+							<span>Capacity: {{ activeEvent.capacity }}</span>
+						</div>
+						<p class="mb-3 text-white">{{ activeEvent.description }}</p>
+						<p class="d-flex flex-row justify-content-between text-white">
+							<span v-if="activeEvent.isCanceled">Status: Cancelled</span>
+							<span v-else>Status: Active</span>
+							<span>Event Type: {{ activeEvent.type }}</span>
+							<span
+								><button class="btn btn-dark" @click="createTicket">
+									Attend
+								</button></span
+							>
+							<span
+								v-if="
+									activeEvent.creatorId == account.id &&
+									activeEvent.isCanceled == false
+								"
+								><button class="btn btn-danger" @click="deleteEvent">
+									Cancel
+								</button></span
+							>
+						</p>
 					</div>
-					<p class="mb-3">{{ activeEvent.description }}</p>
-					<p class="d-flex flex-row justify-content-between">
-						<span v-if="activeEvent.isCanceled">Status: Cancelled</span>
-						<span v-else>Status: Active</span>
-						<span>Event Type: {{ activeEvent.type }}</span>
-						<span
-							><button class="btn btn-dark" @click="createTicket">
-								Attend
-							</button></span
-						>
-						<span
-							v-if="
-								activeEvent.creatorId == account.id &&
-								activeEvent.isCanceled == false
-							"
-							><button class="btn btn-danger" @click="deleteEvent">
-								Cancel
-							</button></span
-						>
-					</p>
 				</div>
 			</div>
-			<div class="row mt-2">
-				<h6>See who is attending...</h6>
-				<div class="d-flex flex-row">
+			<div class="row mt-4 mb-4 left">
+				<h6 class="text-white">See who is attending...</h6>
+				<div class="row mock">
 					<Attendees v-for="t in tickets" :key="t.id" :tickets="t" />
 				</div>
 			</div>
@@ -97,6 +103,7 @@ export default {
 			comment: computed(() => AppState.comment),
 			tickets: computed(() => AppState.ticket),
 			account: computed(() => AppState.account),
+			cover: computed(() => `url(${AppState.activeEvent?.coverImg})`),
 			formatDate(rawDate) {
 				return new Date(rawDate).toLocaleDateString();
 			},
@@ -140,5 +147,28 @@ export default {
 <style lang="scss" scoped>
 .align {
 	justify-content: center;
+}
+
+.sexy {
+	background-image: v-bind(cover);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.custom {
+	backdrop-filter: blur(50px);
+	height: 100%;
+	width: 100%;
+}
+
+.left {
+	padding-left: 80px;
+}
+
+.mock {
+	background: #474c61;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 3px;
 }
 </style>

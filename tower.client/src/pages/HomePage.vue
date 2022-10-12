@@ -1,26 +1,41 @@
 <template>
-	<div class="col-12">
-		<img class="img-fluid" src="..assets/img/GetAheadOf.png" alt="" />
-	</div>
-	<div class="d-flex justify-content-around">
-		<button @click="getEventsByType('')" class="btn btn-outline-dark">
-			All
-		</button>
-		<button @click="getEventsByType('concert')" class="btn btn-outline-dark">
-			Concert
-		</button>
-		<button @click="getEventsByType('convention')" class="btn btn-outline-dark">
-			Convention
-		</button>
-		<button @click="getEventsByType('sport')" class="btn btn-outline-dark">
-			Sport
-		</button>
-		<button @click="getEventsByType('digital')" class="btn btn-outline-dark">
-			Digital
-		</button>
-	</div>
-	<div class="row">
-		<TowerEvent v-for="t in towerEvent" :key="t.id" :towerEvent="t" />
+	<div class="container">
+		<img class="mb-2 w-100" src="../assets/img/GetAheadOf.png" alt="" />
+		<div class="d-flex justify-content-around">
+			<button
+				@click="getEventsByType('')"
+				class="btn btn-outline-dark text-white"
+			>
+				All
+			</button>
+			<button
+				@click="getEventsByType('concert')"
+				class="btn btn-outline-dark text-white"
+			>
+				Concert
+			</button>
+			<button
+				@click="getEventsByType('convention')"
+				class="btn btn-outline-dark text-white"
+			>
+				Convention
+			</button>
+			<button
+				@click="getEventsByType('sport')"
+				class="btn btn-outline-dark text-white"
+			>
+				Sport
+			</button>
+			<button
+				@click="getEventsByType('digital')"
+				class="btn btn-outline-dark text-white"
+			>
+				Digital
+			</button>
+		</div>
+		<div class="row">
+			<TowerEvent v-for="t in towerEvent" :key="t.id" :towerEvent="t" />
+		</div>
 	</div>
 </template>
 

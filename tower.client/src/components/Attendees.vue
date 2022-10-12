@@ -19,8 +19,10 @@ export default {
 
 <style lang="scss" scoped>
 .special {
-	height: 40px;
-	width: 40px;
-	border-radius: 25px;
+	height: 80px;
+	width: 80px;
+	border-radius: 50px;
+	padding: 0;
+	margin: 3px;
 }
 </style>
