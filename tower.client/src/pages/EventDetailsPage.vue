@@ -29,7 +29,11 @@
 							<span v-else>Status: Active</span>
 							<span>Event Type: {{ activeEvent.type }}</span>
 							<span
-								><button class="btn btn-dark" @click="createTicket">
+								><button
+									class="btn btn-dark"
+									@click="createTicket"
+									v-if="account.id != tickets.accountId"
+								>
 									Attend
 								</button></span
 							>
@@ -52,22 +56,24 @@
 					<Attendees v-for="t in tickets" :key="t.id" :tickets="t" />
 				</div>
 			</div>
-			<form class="d-flex flex-column" @submit.prevent="createComment()">
-				<textarea
-					name="body"
-					id="body"
-					cols="20"
-					rows="5"
-					placeholder="Comment here..."
-					v-model="commentData.body"
-				></textarea>
-				<div class="d-flex flex-row justify-content-center">
-					<button class="btn btn-dark m-3">Comment</button>
-				</div>
-			</form>
+			<div class="row mock more w-100">
+				<form class="d-flex flex-column" @submit.prevent="createComment()">
+					<textarea
+						class="mt-3"
+						name="body"
+						id="body"
+						rows="3"
+						placeholder="Comment here..."
+						v-model="commentData.body"
+					></textarea>
+					<div class="d-flex flex-row justify-content-center">
+						<button class="btn btn-dark m-3">Comment</button>
+					</div>
+				</form>
 
-			<div class="col-12 d-flex flex-column align-items-center">
-				<Comment v-for="c in comment" :key="c.id" :comment="c" />
+				<div class="col-12 d-flex flex-column align-items-center">
+					<Comment v-for="c in comment" :key="c.id" :comment="c" />
+				</div>
 			</div>
 		</div>
 	</div>
@@ -164,6 +170,10 @@ export default {
 
 .left {
 	padding-left: 80px;
+}
+
+.more {
+	padding-left: 50px;
 }
 
 .mock {
