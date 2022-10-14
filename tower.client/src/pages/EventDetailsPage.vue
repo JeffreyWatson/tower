@@ -56,7 +56,7 @@
 					<Attendees v-for="t in tickets" :key="t.id" :tickets="t" />
 				</div>
 			</div>
-			<div class="row mock more w-100">
+			<div class="row mock more">
 				<form class="d-flex flex-column" @submit.prevent="createComment()">
 					<textarea
 						class="mt-3"
@@ -110,6 +110,7 @@ export default {
 			tickets: computed(() => AppState.ticket),
 			account: computed(() => AppState.account),
 			cover: computed(() => `url(${AppState.activeEvent?.coverImg})`),
+			// hasTicket: computed(() => ),
 			formatDate(rawDate) {
 				return new Date(rawDate).toLocaleDateString();
 			},
@@ -174,6 +175,10 @@ export default {
 
 .more {
 	padding-left: 50px;
+}
+
+.width {
+	width: 800px;
 }
 
 .mock {
